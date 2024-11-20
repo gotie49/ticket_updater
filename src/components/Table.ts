@@ -33,7 +33,7 @@ export class Table {
           const dataCell = document.createElement('td');
           dataCell.classList.add('table__test-cell', 'table__test-cell--' + key);
           if (key === 'test_name') {
-            const test_url = `http://monik.hh.nexinsure.org:8080/test-context-view?customer=${row.customer}&branch=${row.branch}&resultId=${row.result_id}`;
+            const test_url = 'https://google.com';
             dataCell.onclick = () => window.open(test_url);
             dataCell.textContent = String(value);
             dataCell.classList.add('link-cell');
