@@ -1,6 +1,50 @@
-node_modules/
-.vscode/
-.prettierrc
-eslint.config.mjs
-.prettierignore
-.eslintrc.json
+### Maven-specific ignores ###
+
+# Target folder where Maven stores compiled files and build artifacts
+/target/
+
+# Maven build logs
+mvnw.log
+
+# Maven Wrapper binary
+.mvn/wrapper/maven-wrapper.jar
+
+
+### Java-specific ignores ###
+
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+
+### Eclipse IDE ###
+# Eclipse project files
+.classpath
+.project
+.settings/  
+bin/
+
+### IntelliJ IDE ###
+.idea/
+
+### frontend ###
+frontend/node_modules
+frontend/dist
+frontend/.vscode
+frontend/.prettierrc
+frontend/.eslintrc.json
+frontend/.prettierignore
+frontend/eslint.config.mjs
