@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true, // Enables JSON imports
+    "baseUrl": ".", // Ensure baseUrl is set (relative to the root of your project)
+    "paths": {
+      "@config": ["../config.json"] // Map @config to the correct location
+    },
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */

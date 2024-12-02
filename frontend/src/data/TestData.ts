@@ -29,8 +29,6 @@ export class TestData {
   }
 
   public getCurrentData(): Test[] {
-    console.log('getter');
-    console.log(this.currentData);
     return this.currentData;
   }
 

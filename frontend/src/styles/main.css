@@ -201,6 +201,16 @@ button:hover {
   margin-top: 15px;
 }
 
+.control-panel__refresh-button-container {
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.control-panel__refresh-button {
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
 .control-panel__search-icon {
   font-size: 20px;
   position: absolute;
@@ -303,4 +313,99 @@ button:hover {
 }
 .table__header-cell {
   white-space: nowrap;
+}
+
+.table__header-cell__sort-icon {
+  font-size: 22px;
+}
+
+.table__header-cell--last_new_failed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.table__header-cell--test_name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.table__header-cell--customer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.table__header-cell--branch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.table__header-cell--test_status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.table__header-cell--ticket_status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.table__header-cell--ticket_id {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.table__no-connect {
+  height: 500px;
+}
+.connect-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+.spinner-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }

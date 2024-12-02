@@ -1,0 +1,16 @@
+div.table-container 
+    table.table
+        thead.table__table-head
+            tr.table__header-row
+                - const headerFields = ['test_name','customer','branch','test_status','last_new_failed','ticket_status','ticket_id'];
+                each headerName in headerFields 
+                    th.table__header-cell.link-cell.ascending(class=headerName)
+                        div(class='table__header-cell--' + headerName)
+                            span #{headerName}
+                            span.material-symbols-outlined.table__header-cell__sort-icon swap_vert
+        tbody.table__table-body
+            tr.table__test-row
+                td.table__test-cell.table__no-connect(colspan="7")
+                    div.connect-cell NO CONNECTION TO THE DATABASE
+                        div.loading-spinner
+                        

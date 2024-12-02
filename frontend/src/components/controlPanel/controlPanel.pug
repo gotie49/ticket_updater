@@ -1,0 +1,18 @@
+div.control-panel
+  div.control-panel__filtering-options
+    - const filters = ['customer', 'branch', 'test_name', 'test_status', 'ticket_id'];
+    each filterName in filters
+      div.control-panel__filter-container(class='control-panel__filter-container--' + filterName)
+        label.control-panel__label(for=filterName) Filter by #{filterName}
+        div.control-panel__search-container
+          label.material-symbols-outlined.control-panel__search-icon(for=filterName) search
+          input.control-panel__search-input(type='text', placeholder=filterName, name=filterName, id=filterName)
+    label.control-panel__checkbox-label
+      input.control-panel__checkbox(type='checkbox', name='noTicketOnly')
+      | Only show rows without tickets
+    div.control-panel__update-button-container
+      button.control-panel__update-button Update
+    div.control-panel__refresh-button-container
+      button.control-panel__refresh-button Refresh
+  div.control-panel__reset-button-container
+    button.control-panel__reset-button Reset

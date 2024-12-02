@@ -1,11 +1,10 @@
 import { ApiTest, Test } from '../types/types';
+import config from '@config';
 
 export class ApiService {
   private apiUrl: string;
   constructor() {
-    //hoping this is fine
-    //this.apiUrl = process.env.API_URL || 'http://localhost:8080';
-    this.apiUrl = 'http://localhost:8080';
+    this.apiUrl = config.FRONTEND.API_URL;
   }
 
   async getTests(): Promise<Test[]> {
@@ -23,6 +22,7 @@ export class ApiService {
           customer: item.customer,
           branch: item.branch,
           test_status: item.test_status,
+          last_new_failed: item.last_new_failed !== undefined ? item.last_new_failed : 'n/a',
           ticket_status: item.ticket_status !== undefined ? item.ticket_status : '',
           ticket_id: item.ticket_id !== undefined ? item.ticket_id : '',
           result_id: item.result_id,

@@ -1,31 +1,19 @@
-import { TestData } from '../data/TestData';
-import { Test } from '../types/types';
+import { TestData } from '../../data/TestData';
+import { Test } from '../../types/types';
+import config from '@config';
 
-export class Table {
-  private tableElement: HTMLTableElement;
-  private tableBody: HTMLTableSectionElement;
+export class TableBody {
+  constructor(testData: TestData) {
+    this.renderBody(testData);
+  }
 
-  constructor(private testData: TestData) {
+  public renderBody(testData: TestData): void {
     const data = testData.getCurrentData();
-    this.tableElement = document.createElement('table');
-    this.tableElement.className = 'table';
+    const tableBody = document.querySelector('.table__table-body') as HTMLTableSectionElement;
+    tableBody.innerHTML = '';
 
-    const tableHeader = this.tableElement.createTHead();
-    const headerRow = tableHeader.insertRow();
-    headerRow.className = 'table__header-row';
-
-    Object.keys(data[0]).forEach((key) => {
-      if (key !== 'result_id' && key !== 'case_id') {
-        const headerCell = document.createElement('th');
-        headerCell.className = 'table__header-cell';
-        headerCell.textContent = key;
-        headerRow.appendChild(headerCell);
-      }
-    });
-
-    this.tableBody = this.tableElement.createTBody();
     data.forEach((row, index) => {
-      const dataRow = this.tableBody.insertRow();
+      const dataRow = tableBody.insertRow();
       dataRow.className = 'table__test-row';
 
       Object.entries(row).forEach(([key, value]) => {
@@ -33,14 +21,14 @@ export class Table {
           const dataCell = document.createElement('td');
           dataCell.classList.add('table__test-cell', 'table__test-cell--' + key);
           if (key === 'test_name') {
-            //TODO: env for this
-            const test_url = `http://monik.hh.nexinsure.org:8080/test-context-view?customer=${row.customer}&branch=${row.branch}&resultId=${row.result_id}`;
+            const test_url =
+              config.FRONTEND.MONIK_URL + `customer=${row.customer}&branch=${row.branch}&resultId=${row.result_id}`;
             dataCell.onclick = () => window.open(test_url);
             dataCell.textContent = String(value);
             dataCell.classList.add('link-cell');
           } else if (key === 'ticket_id') {
-            this.creatInputId(dataCell, value, index);
-            this.createEditButton(dataCell, row, index);
+            this.creatInputId(testData, dataCell, value, index);
+            this.createEditButton(testData, dataCell, row, index);
           } else {
             dataCell.textContent = String(value);
           }
@@ -50,7 +38,34 @@ export class Table {
     });
   }
 
-  private createEditButton(buttonCell: HTMLTableCellElement, row: Test, index: number): void {
+  private creatInputId(testData: TestData, dataCell: HTMLTableCellElement, value: unknown, index: number): void {
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.placeholder = 'Enter TicketID';
+    inputField.className = 'table__test-cell__id-field';
+    inputField.value = String(value);
+    inputField.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        this.handleEnterPress(testData, inputField, index);
+      }
+    });
+    dataCell.appendChild(inputField);
+
+    const textNode = document.createElement('span');
+    textNode.className = 'table__test-cell__text-content';
+    textNode.textContent = String(value);
+    dataCell.appendChild(textNode);
+
+    if (String(value) === '') {
+      inputField.style.display = '';
+      textNode.style.display = 'none';
+    } else {
+      inputField.style.display = 'none';
+      textNode.style.display = '';
+    }
+  }
+
+  private createEditButton(testData: TestData, buttonCell: HTMLTableCellElement, row: Test, index: number): void {
     const editButton = document.createElement('button');
     editButton.classList.add('table__test-cell__edit-button');
     const editButtonSpan = document.createElement('span');
@@ -73,7 +88,7 @@ export class Table {
           textContent.textContent = idField.value;
           idField.style.display = 'none';
           textContent.style.display = '';
-          this.testData.updateTicketID(index, idField.value);
+          testData.updateTicketID(index, idField.value);
         }
 
         editButton.classList.remove('save');
@@ -92,34 +107,7 @@ export class Table {
     buttonCell.appendChild(editButton);
   }
 
-  private creatInputId(dataCell: HTMLTableCellElement, value: unknown, index: number): void {
-    const inputField = document.createElement('input');
-    inputField.type = 'text';
-    inputField.placeholder = 'Enter TicketID';
-    inputField.className = 'table__test-cell__id-field';
-    inputField.value = String(value);
-    inputField.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        this.handleEnterPress(inputField, index);
-      }
-    });
-    dataCell.appendChild(inputField);
-
-    const textNode = document.createElement('span');
-    textNode.className = 'table__test-cell__text-content';
-    textNode.textContent = String(value);
-    dataCell.appendChild(textNode);
-
-    if (String(value) === '') {
-      inputField.style.display = '';
-      textNode.style.display = 'none';
-    } else {
-      inputField.style.display = 'none';
-      textNode.style.display = '';
-    }
-  }
-
-  private handleEnterPress(idField: HTMLInputElement, index: number): void {
+  private handleEnterPress(testData: TestData, idField: HTMLInputElement, index: number): void {
     const row = idField.closest('tr');
     const idCell = row?.querySelector('.table__test-cell--ticket_id');
     const textContent = idCell?.querySelector('.table__test-cell__text-content') as HTMLElement;
@@ -129,16 +117,12 @@ export class Table {
         textContent.textContent = idField.value;
         idField.style.display = 'none';
         textContent.style.display = '';
-        this.testData.updateTicketID(index, idField.value);
+        testData.updateTicketID(index, idField.value);
       }
       if (editButton) {
         editButton.classList.remove('save');
         editButton.classList.add('edit');
       }
     }
-  }
-
-  public render(container: HTMLElement): void {
-    container.appendChild(this.tableElement);
   }
 }
