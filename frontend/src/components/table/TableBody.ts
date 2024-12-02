@@ -1,6 +1,6 @@
 import { TestData } from '../../data/TestData';
 import { Test } from '../../types/types';
-import config from '@config';
+//import config from '@config';
 
 export class TableBody {
   constructor(testData: TestData) {
@@ -21,8 +21,9 @@ export class TableBody {
           const dataCell = document.createElement('td');
           dataCell.classList.add('table__test-cell', 'table__test-cell--' + key);
           if (key === 'test_name') {
-            const test_url =
-              config.FRONTEND.MONIK_URL + `customer=${row.customer}&branch=${row.branch}&resultId=${row.result_id}`;
+            // const test_url =
+            //  config.FRONTEND.MONIK_URL + `customer=${row.customer}&branch=${row.branch}&resultId=${row.result_id}`;
+            const test_url = 'https://kog-stats.ru';
             dataCell.onclick = () => window.open(test_url);
             dataCell.textContent = String(value);
             dataCell.classList.add('link-cell');

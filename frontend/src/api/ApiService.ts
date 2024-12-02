@@ -1,10 +1,11 @@
 import { ApiTest, Test } from '../types/types';
-import config from '@config';
+//import config from '@config';
 
 export class ApiService {
   private apiUrl: string;
   constructor() {
-    this.apiUrl = config.FRONTEND.API_URL;
+    // this.apiUrl = config.FRONTEND.API_URL;
+    this.apiUrl = 'google.com';
   }
 
   async getTests(): Promise<Test[]> {
