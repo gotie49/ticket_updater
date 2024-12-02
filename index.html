@@ -1,15 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>KTest Ticket Updater</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="icon" type="image/png" href="favicon-512x512.png">
-</head>
-<body>
-    <script src="bundle.js" type="module"></script>
-</body>
+  <script defer src="bundle.js"></script></head>
+  <body>
+    <div class="main-container">
+<div class="header">
+  <div class="header__left-text"><span class="red">KTestTicketUpdater</span></div>
+  <div class="header__right-text"> </div>
+</div>
+      <div class="content">
+<div class="control-panel">
+  <div class="control-panel__filtering-options">
+    <div class="control-panel__filter-container control-panel__filter-container--customer">
+      <label class="control-panel__label" for="customer">Filter by customer</label>
+      <div class="control-panel__search-container">
+        <label class="material-symbols-outlined control-panel__search-icon" for="customer">search</label>
+        <input class="control-panel__search-input" type="text" placeholder="customer" name="customer" id="customer">
+      </div>
+    </div>
+    <div class="control-panel__filter-container control-panel__filter-container--branch">
+      <label class="control-panel__label" for="branch">Filter by branch</label>
+      <div class="control-panel__search-container">
+        <label class="material-symbols-outlined control-panel__search-icon" for="branch">search</label>
+        <input class="control-panel__search-input" type="text" placeholder="branch" name="branch" id="branch">
+      </div>
+    </div>
+    <div class="control-panel__filter-container control-panel__filter-container--test_name">
+      <label class="control-panel__label" for="test_name">Filter by test_name</label>
+      <div class="control-panel__search-container">
+        <label class="material-symbols-outlined control-panel__search-icon" for="test_name">search</label>
+        <input class="control-panel__search-input" type="text" placeholder="test_name" name="test_name" id="test_name">
+      </div>
+    </div>
+    <div class="control-panel__filter-container control-panel__filter-container--test_status">
+      <label class="control-panel__label" for="test_status">Filter by test_status</label>
+      <div class="control-panel__search-container">
+        <label class="material-symbols-outlined control-panel__search-icon" for="test_status">search</label>
+        <input class="control-panel__search-input" type="text" placeholder="test_status" name="test_status" id="test_status">
+      </div>
+    </div>
+    <div class="control-panel__filter-container control-panel__filter-container--ticket_id">
+      <label class="control-panel__label" for="ticket_id">Filter by ticket_id</label>
+      <div class="control-panel__search-container">
+        <label class="material-symbols-outlined control-panel__search-icon" for="ticket_id">search</label>
+        <input class="control-panel__search-input" type="text" placeholder="ticket_id" name="ticket_id" id="ticket_id">
+      </div>
+    </div>
+    <label class="control-panel__checkbox-label">
+      <input class="control-panel__checkbox" type="checkbox" name="noTicketOnly">Only show rows without tickets
+    </label>
+    <div class="control-panel__update-button-container">
+      <button class="control-panel__update-button">Update</button>
+    </div>
+    <div class="control-panel__refresh-button-container">
+      <button class="control-panel__refresh-button">Refresh</button>
+    </div>
+  </div>
+  <div class="control-panel__reset-button-container">
+    <button class="control-panel__reset-button">Reset</button>
+  </div>
+</div>
+<div class="dialog-container">
+  <div class="dialog-content">
+    <div class="close-button-container">
+      <button class="material-symbols-outlined dialog-content__close-button">Close</button>
+    </div>
+    <div class="dialog-content__text">
+      <p class="dialog-content__paragraph"></p>
+      <button class="dialog-content__update-button">Update</button>
+    </div>
+  </div>
+</div>
+<div class="spinner-container"> 
+  <div class="loading-spinner"></div>
+</div>
+<div class="table-container"> 
+  <table class="table">
+    <thead class="table__table-head">
+      <tr class="table__header-row">
+        <th class="table__header-cell link-cell ascending test_name">
+          <div class="table__header-cell--test_name"><span>test_name</span><span class="material-symbols-outlined table__header-cell__sort-icon">swap_vert</span></div>
+        </th>
+        <th class="table__header-cell link-cell ascending customer">
+          <div class="table__header-cell--customer"><span>customer</span><span class="material-symbols-outlined table__header-cell__sort-icon">swap_vert</span></div>
+        </th>
+        <th class="table__header-cell link-cell ascending branch">
+          <div class="table__header-cell--branch"><span>branch</span><span class="material-symbols-outlined table__header-cell__sort-icon">swap_vert</span></div>
+        </th>
+        <th class="table__header-cell link-cell ascending test_status">
+          <div class="table__header-cell--test_status"><span>test_status</span><span class="material-symbols-outlined table__header-cell__sort-icon">swap_vert</span></div>
+        </th>
+        <th class="table__header-cell link-cell ascending last_new_failed">
+          <div class="table__header-cell--last_new_failed"><span>last_new_failed</span><span class="material-symbols-outlined table__header-cell__sort-icon">swap_vert</span></div>
+        </th>
+        <th class="table__header-cell link-cell ascending ticket_status">
+          <div class="table__header-cell--ticket_status"><span>ticket_status</span><span class="material-symbols-outlined table__header-cell__sort-icon">swap_vert</span></div>
+        </th>
+        <th class="table__header-cell link-cell ascending ticket_id">
+          <div class="table__header-cell--ticket_id"><span>ticket_id</span><span class="material-symbols-outlined table__header-cell__sort-icon">swap_vert</span></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="table__table-body">
+      <tr class="table__test-row">
+        <td class="table__test-cell table__no-connect" colspan="7">
+          <div class="connect-cell">NO CONNECTION TO THE DATABASE
+            <div class="loading-spinner"></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+      </div>
+<div class="footer">
+  <div class="footer-text"><a href="https://bitbucket.nexinsure.org/users/tiebeg/repos/ktestticketupdater/browse">bitbucket</a></div>
+</div>
+    </div>
+  </body>
 </html>
